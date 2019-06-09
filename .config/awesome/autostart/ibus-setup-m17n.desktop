@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name[de]=IBus M17n Einstellungen
+Name=IBus M17N Setup
+Comment[de]=IBus M17N Einstellungen
+Comment=Set up IBus M17N engine
+Exec=/usr/libexec/ibus-setup-m17n
+NoDisplay=true
+Type=Application
+StartupNotify=true

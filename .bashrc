@@ -16,9 +16,21 @@ export PATH
 export GOPATH=$HOME/go
 export NODE_PATH=$HOME/.npm/lib/node_modules
 
-#Disable gnome-ssh-askpass
+# Disable gnome-ssh-askpass
 [ -n "$SSH_CONNECTION" ] && unset SSH_ASKPASS
 export GIT_ASKPASS=
+
+# Change tty title by function:
+set-title(){
+  ORIG=$PS1
+  TITLE="\e]2;$@\a"
+  PS1=${ORIG}${TITLE}
+}
+
+# Ibus rescue 
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 
 # Aliases
 alias hotrxln="sudo nmcli device wifi connect rxln password tudatuda"

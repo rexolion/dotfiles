@@ -1,0 +1,19 @@
+[Desktop Entry]
+Encoding=UTF-8
+# The title of the preferences window for Cangjie
+Name=Cangjie Preferences
+Name[pt_BR]=Preferências do Cangjie
+Name[zh_HK]=倉頡偏好設定
+Name[zh_TW]=倉頡偏好設定
+# Tooltip for the preferences app for Cangjie
+Comment=Set preferences for the Cangjie input method
+Comment[pt_BR]=Define as preferências para o método de entrada Cangjie
+Comment[zh_HK]=設定倉頡輸入法的偏好設定
+Comment[zh_TW]=設定倉頡輸入法的偏好設定
+Exec=/usr/bin/ibus-setup-cangjie cangjie
+Icon=ibus-setup-cangjie
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Settings;
+NotShowIn=GNOME;
