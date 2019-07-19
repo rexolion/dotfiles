@@ -1595,10 +1595,7 @@ customization.widgets.keyboardlayout = awful.widget.keyboardlayout()
 customization.widgets.textclock = wibox.widget.textclock()
 
 -- Launcher
-customization.widgets.launcher = awful.widget.launcher({ 
-    image = beautiful.awesome_icon,
-    menu = mymainmenu,
-})
+-- DELETED MOTHERFUCKER
 
 -- }}}
 
@@ -1690,7 +1687,7 @@ vicious.register(customization.widgets.bat, vicious.widgets.bat,
         return perc
     end, 61, customization.widgets.bat.instance)
 do
-    local prog="gnome-control-center power"
+    local prog="env XDG_CURRENT_DESKTOP=GNOME gnome-control-center power"
     local started=false
     customization.widgets.bat:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
@@ -1704,81 +1701,13 @@ do
     ))
 end
 
-customization.widgets.mpdstatus = wibox.widget.textbox()
-customization.widgets.mpdstatus:set_ellipsize("end")
-vicious.register(customization.widgets.mpdstatus, vicious.widgets.mpd,
-  function (mpdwidget, args)
-    local text = nil
-    local state = args["{state}"]
-    if state then
-      if state == "Stop" then 
-        text = ""
-      else 
-        text = args["{Artist}"]..' - '.. args["{Title}"]
-      end
-      return '<span fgcolor="light green"><b>[' .. state .. ']</b> <small>' .. text .. '</small></span>'
-    end
-    return ""
-  end, 1)
--- http://git.sysphere.org/vicious/tree/README
-customization.widgets.mpdstatus = wibox.layout.constraint(customization.widgets.mpdstatus, "max", 180, nil)
-do
-    customization.widgets.mpdstatus:buttons(awful.util.table.join(
-    awful.button({ }, 1, function ()
-        awful.util.spawn("mpc toggle")
-    end),
-    awful.button({ }, 2, function ()
-        awful.util.spawn("mpc prev")
-    end),
-    awful.button({ }, 3, function ()
-        awful.util.spawn("mpc next")
-    end),
-    awful.button({ }, 4, function ()
-        awful.util.spawn("mpc seek -1%")
-    end),
-    awful.button({ }, 5, function ()
-        awful.util.spawn("mpc seek +1%")
-    end)
-    ))
-end
 
-customization.widgets.volume = wibox.widget.textbox()
-vicious.register(customization.widgets.volume, vicious.widgets.volume,
-  "<span fgcolor='cyan'>$1%$2</span>", 1, "Master")
-do
-    local prog="pavucontrol"
-    local started=false
-    customization.widgets.volume:buttons(awful.util.table.join(
-    awful.button({ }, 1, function ()
-        if started then
-            awful.util.spawn("pkill -f '" .. prog .. "'")
-        else
-            awful.util.spawn(prog)
-        end
-        started=not started
-    end),
-    awful.button({ }, 2, function ()
-        awful.util.spawn("amixer sset Mic toggle")
-    end),
-    awful.button({ }, 3, function ()
-        awful.util.spawn("amixer sset Master toggle")
-    end),
-    awful.button({ }, 4, function ()
-        awful.util.spawn("amixer sset Master 1%-")
-    end),
-    awful.button({ }, 5, function ()
-        awful.util.spawn("amixer sset Master 1%+")
-    end)
-    ))
-end
 
 customization.widgets.date = wibox.widget.textbox()
 vicious.register(customization.widgets.date, vicious.widgets.date, "%a %x %r %Z", 1)
 do
     local prog1="gnome-control-center datetime"
     local started1=false
-    local prog2="gnome-control-center region"
-    local started2=false
     customization.widgets.date:buttons(awful.util.table.join(
     awful.button({ }, 1, function ()
         if started1 then
@@ -1787,14 +1716,6 @@ do
             awful.util.spawn(prog1)
         end
         started1=not started1
-    end),
-    awful.button({ }, 3, function ()
-        if started2 then
-            awful.util.spawn("pkill -f '" .. prog2 .. "'")
-        else
-            awful.util.spawn(prog2)
-        end
-        started2=not started2
     end)
     ))
 end
@@ -1929,8 +1850,6 @@ function(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            customization.widgets.launcher,
-            customization.widgets.taglist[s],
             customization.widgets.uniarg[s],
             customization.widgets.promptbox[s],
         },
@@ -1939,11 +1858,6 @@ function(s)
             layout = wibox.layout.fixed.horizontal,
             customization.widgets.keyboardlayout,
             wibox.widget.systray(),
-            customization.widgets.cpuusage,
-            customization.widgets.memusage,
-            customization.widgets.bat,
-            customization.widgets.mpdstatus,
-            customization.widgets.volume,
             customization.widgets.date,
             customization.widgets.layoutbox[s],
         },
