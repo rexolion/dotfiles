@@ -7,3 +7,4 @@ function run {
 }
 
 run setxkbmap -layout "us,ru" -option "grp:alt_shift_toggle"
+run redshift -l 44.5:34.6

@@ -370,7 +370,7 @@ end
 -- {{{ Customized functions
 
 customization.func.system_lock = function ()
-    awful.util.spawn("xscreensaver-command -l")
+    awful.util.spawn("i3lock")
 end
 
 customization.func.system_suspend = function ()
@@ -2446,7 +2446,7 @@ awful.key({}, "XF86AudioMicMute", function ()
 end),
 
 awful.key({}, "XF86ScreenSaver", function ()
-    awful.util.spawn("xscreensaver-command -l")
+    awful.util.spawn("i3lock")
 end),
 
 awful.key({}, "XF86WebCam", function ()
@@ -2874,6 +2874,10 @@ awful.rules.rules = {
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
     -- Enable sloppy focus
+    c.shape = function(cr,w,h)
+        gears.shape.rounded_rect(cr,w,h,15)
+    end
+
     c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
             and awful.client.focus.filter(c) then
@@ -2945,9 +2949,6 @@ client.connect_signal("manage", function (c, startup)
 
 end)
 
-client.connect_signal("focus", function(c) c.border_color = beautiful.border_focus end)
-
-client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 
 customization.func.client_manage_tag = function (c, startup)
     if startup then
